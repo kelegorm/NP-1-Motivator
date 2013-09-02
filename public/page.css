@@ -1,0 +1,21 @@
+#footer{
+    background-color:#f5f5f5;
+}
+@media (max-width: 767px) {
+    #footer{margin-left:-20px;
+        margin-right:-20px;
+        padding-left:20px;
+        padding-right:20px;
+    }
+}
+.container{
+    width:auto;
+    max-width:680px;
+}
+.container .credit{
+    margin:20px 0;
+}
+
+.loading{
+    opaque: .5;
+}
