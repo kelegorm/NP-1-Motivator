@@ -18,15 +18,17 @@ module.exports = function(mongoose) {
         });
     };
 
-    var getRandomAdvice = function (callback) {
+    var getRandomAdvice = function (lastId, callback) {
         if (_count == 0) {
             callback(null);
             return;
         }
 
-        var skipCount = Math.floor(Math.random() * (_count));
-        Advice.findOne().skip(skipCount).limit(1).exec(function (error, advice) {
+        var skipCount = Math.floor(Math.random() * (_count-1));
+        var query = (lastId)?{_id: { $ne: lastId }}:{};
+        Advice.findOne(query).skip(skipCount).exec(function (error, advice) {
             if (error) {
+                console.log(error, lastId);
                 callback(null);
                 return;
             }
@@ -42,7 +44,7 @@ module.exports = function(mongoose) {
                 console.log('addAdviceError:' + error);
                 return;
             }
-            _count ++;
+            init();
         });
     };
 
@@ -55,7 +57,9 @@ module.exports = function(mongoose) {
             }
 
             _count = count;
-            callback();
+            if (callback) {
+                callback();
+            }
         });
     };
 

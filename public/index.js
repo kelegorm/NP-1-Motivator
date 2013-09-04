@@ -1,3 +1,5 @@
+var lastAdvice;
+
 $('#btnNext').click(next);
 
 function next(event) {
@@ -5,8 +7,10 @@ function next(event) {
         event.preventDefault();
     }
     $('#message').addClass('loading');
-    $.getJSON('/advice/random', function(data) {
-        $('#message').html(data.text);
+    var lastId = (lastAdvice)?lastAdvice._id:'';
+    $.getJSON('/advice/random', {lastId: lastId}, function(data) {
+        lastAdvice = data;
+        $('#message').html(lastAdvice.text);
         $('#message').removeClass('loading');
     });
 }

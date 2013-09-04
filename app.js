@@ -17,7 +17,7 @@ app.use(express.bodyParser());
  */
 app.get('/advice/:id', function(req, res) {
     if (req.params.id == 'random') {
-        Advice.getRandomAdvice(function (data) {
+        Advice.getRandomAdvice(req.query.lastId, function (data) {
             if (data) {
                 res.send(data);
             } else {
@@ -38,14 +38,13 @@ app.get('/advice/:id', function(req, res) {
 app.post('/advice', function(req, res) {
     Advice.addAdvice(req.body.text);
     res.send(200);
-    console.log('receive text: ' + req.body.text);
 });
 
 
 /**
  *  Run application
  */
-mongoose.connect('mongodb://testuser:testpassword@widmore.mongohq.com:10010/demo1', function(error) {
+mongoose.connect('mongodb://silentuser:silentpassword@widmore.mongohq.com:10010/demo1', function(error) {
     if (error) {
         console.log('Mongoose.connect error: ' + error);
         return;
