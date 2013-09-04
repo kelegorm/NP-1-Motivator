@@ -4,22 +4,41 @@ var app         = express();
 var mongoose = require('mongoose');
 var Advice = require('./model/advice')( mongoose);
 
-var adviceCount = 0;
-
 /**
  *  Configuration express application
  */
 app.use(express.static('public'));
+app.use(express.limit('1mb'));
+app.use(express.bodyParser());
 
 
 /**
  *  Setup routes
  */
-app.get('/advice/random', function(req, res) {
-    var number = Math.floor(Math.random * adviceCount);
-    Advice.getAdvice(number, function (data) {
-        res.send(data);
-    });
+app.get('/advice/:id', function(req, res) {
+    if (req.params.id == 'random') {
+        Advice.getRandomAdvice(function (data) {
+            if (data) {
+                res.send(data);
+            } else {
+                res.send(404);
+            }
+        });
+    } else {
+        Advice.getAdvice(number, function (data) {
+            if (data) {
+                res.send(data);
+            } else {
+                res.send(404);
+            }
+        });
+    }
+});
+
+app.post('/advice', function(req, res) {
+    Advice.addAdvice(req.body.text);
+    res.send(200);
+    console.log('receive text: ' + req.body.text);
 });
 
 
@@ -34,15 +53,11 @@ mongoose.connect('mongodb://testuser:testpassword@widmore.mongohq.com:10010/demo
 
     console.log('Connected to mongodb');
 
-    Advice.model.count(function (error, count) {
+    Advice.init(function (error) {
         if (error) {
-            console.log('Advice.count error: ' + error);
+            console.log(error);
             return;
         }
-
-        adviceCount = count;
-        console.log('Count of advices: ' + adviceCount);
-
         //'process.env.PORT' for run in Cloud9
         app.listen(process.env.PORT || port);
         console.log('Listening on port ' + port);

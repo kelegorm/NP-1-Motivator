@@ -2,8 +2,6 @@
 <html>
 <head>
     <title></title>
-    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
-    <!--<link rel="stylesheet" href="css/bootstrap-responsive.css">-->
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" href="stickyfooter.css">
     <link rel="stylesheet" href="page.css">
@@ -13,10 +11,15 @@
 <div id="wrap">
     <div class="container">
         <div class="page-header">
-            <h1>Motivator</h1>
+            <h3 class="muted">Motivator</h3>
         </div>
-        <div id="message" class="lead"></div>
-        <button id="btnNext" class="btn btn-primary btn-large">Next</button>
+        <div class="main-block">
+            <h1 id="message" class="lead"></h1>
+        </div>
+        <div class="buttons">
+            <a id="btnNext" class="lead input-xlarge" href="#">Next advice</a><br />
+            <a id="btnAdd" class="muted" href="#addAdviceWindow" data-toggle="modal">Send own advice</a>
+        </div>
     </div>
     <div id="push"></div>
 </div>
@@ -26,8 +29,24 @@
     </div>
 </div>
 
+<div class="modal hide" id="addAdviceWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Submit new advice</h3>
+    </div>
+    <div class="modal-body">
+        <p>Type you advice</p>
+        <form id="addAdviceForm" name="registr" action="/advice" method="post">
+            <textarea id="adviceTextarea" name="text" type="text" required="true" rows="7" class="span5" placeholder="type you advice" /></textarea>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" form="addAdviceForm">Submit!</button>
+    </div>
+</div>
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<!--<script src="js/bootstrap.js"></script>-->
 <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="index.js"></script>
 </body>
