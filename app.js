@@ -25,7 +25,7 @@ app.get('/advice/:id', function(req, res) {
             }
         });
     } else {
-        Advice.getAdvice(number, function (data) {
+        Advice.getAdvice(req.params.id, function (data) {
             if (data) {
                 res.send(data);
             } else {
