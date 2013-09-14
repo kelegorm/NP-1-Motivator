@@ -33,6 +33,12 @@ module.exports = function(mongoose) {
                 return;
             }
 
+            if (!advice) {
+                console.log('advice is null');
+                console.log('query: ', query);
+                console.log('skipCount: ', skipCount);
+            }
+
             callback(advice);
         });
     }

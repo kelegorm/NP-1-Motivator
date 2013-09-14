@@ -1,7 +1,9 @@
+// last advice id
 var lastAdvice;
 
-$('#btnNext').click(next);
 
+// load new random advice
+$('#btnNext').click(next);
 function next(event) {
     if (event) {
         event.preventDefault();
@@ -15,15 +17,20 @@ function next(event) {
     });
 }
 
+
+// Submit new advice
 $('#addAdviceForm').submit(function (event) {
     event.preventDefault();
     $.post('/advice', $(this).serialize());
     $('#addAdviceWindow').modal('hide');
 });
 
+
+// Clear new advice window when show
 $('#addAdviceWindow').on('show', function (event) {
     $('#addAdviceForm').find('input[type=text], textarea').val('');
 });
 
-next();
 
+// Load first advice after page loaded
+next();
