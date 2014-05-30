@@ -63,3 +63,24 @@ mongoose.connect('mongodb://localhost:27017/motivator', function(error) {
     });
 
 });
+
+function getMongodbURL() {
+    if (process.env.VCAP_SERVICES) {
+        var mongo = JSON.parse(process.env.VCAP_SERVICES)['mongodb-1.8'][0]['credentials'];
+    }
+    
+    if (!mongo) {
+        mongo = {
+            "hostname":"localhost",
+            "port":27017,
+            "db":"finance"
+        }
+    }
+    
+    var result = 'mongodb://';
+    if (mongo.username && mongo.password) {
+         result += mongo.username + ":" + mongo.password + "@";
+    }
+    
+    return result + mongo.hostname + ":" + mongo.port + "/" + mongo.db;
+}
