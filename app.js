@@ -44,7 +44,7 @@ app.post('/advice', function(req, res) {
 /**
  *  Run application
  */
-mongoose.connect('mongodb://localhost:27017/motivator', function(error) {
+mongoose.connect(getMongodbURL(), function(error) {
     if (error) {
         console.log('Mongoose.connect error: ' + error);
         return;
@@ -73,7 +73,7 @@ function getMongodbURL() {
         mongo = {
             "hostname":"localhost",
             "port":27017,
-            "db":"finance"
+            "db":"motivator"
         }
     }
     
@@ -81,6 +81,7 @@ function getMongodbURL() {
     if (mongo.username && mongo.password) {
          result += mongo.username + ":" + mongo.password + "@";
     }
-    
-    return result + mongo.hostname + ":" + mongo.port + "/" + mongo.db;
+
+    result += mongo.hostname + ":" + mongo.port + '/' + mongo.db;
+    return result;
 }

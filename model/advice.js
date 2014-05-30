@@ -41,7 +41,7 @@ module.exports = function(mongoose) {
 
             callback(advice);
         });
-    }
+    };
 
     var addAdvice = function(text, callback) {
         var newAdvice = new Advice({text: text, number: _count});
@@ -81,4 +81,4 @@ module.exports = function(mongoose) {
         addAdvice: addAdvice,
         getCount : getCount
     }
-}
+};
