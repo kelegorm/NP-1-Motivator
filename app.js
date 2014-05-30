@@ -44,7 +44,7 @@ app.post('/advice', function(req, res) {
 /**
  *  Run application
  */
-mongoose.connect('mongodb://silentuser:silentpassword@widmore.mongohq.com:10010/demo1', function(error) {
+mongoose.connect('mongodb://localhost:27017/motivator', function(error) {
     if (error) {
         console.log('Mongoose.connect error: ' + error);
         return;
